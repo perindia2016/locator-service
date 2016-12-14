@@ -94,7 +94,11 @@ Access following URL which provides the UI for the Locator Service where Latitud
 
    [Application URL](http://35.184.17.6:8090/locatorui)
    
-Access following REST API URL of Locator Service where Latitude, Longitude, Distance and Entity Type (i.e., restaurants, foods) are provided as query string.
+Access following REST API URL of Locator Service where Latitude, Longitude, Distance and Entity Type (i.e., restaurant, food) are provided as query string. Only clicking Apply map will display the results.
+Example: Latitude: -33.8708202
+         Longitude: 151.1994884
+         Distance: 1000
+         Entity Type: restaurant
 
   [REST Endpoint URL](http://35.184.17.6:8090/locator?lat=-33.8708202&long=151.1994884&distance=500&entity_key=restaurant)
 
