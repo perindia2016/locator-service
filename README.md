@@ -13,7 +13,7 @@ We initially chose AWS as our cloud platform but as we had some issue installing
 
 The diagram below shows our overall architecture:
 
-![Architecture](images/architecture.png)
+![Architecture](images/architecture.jpg)
 
 ## Technology Components
 
@@ -30,19 +30,26 @@ In the architecture we tried to use the cloud providers built in capabilities wh
 
 ### Deployment - Docker images using Kubernetes
 
-Some description on how you created images and deployed using K8s.
+Docker image is built and pushed to the google cloud registry.
+Docker image name: gcr.io/my-kubernetes-test-152405/store-locator:v2
+
+Deployment is done using the Replication Controller feature of Google Cloud Platform. For each of the components (nodejs and redis) separate Replication Controllers and corresponding services are created. Service for redis does not have public ip, where as for nodejs service has the public IP configured. 
 
 ### Load Balancer
 
-How was this configured.
+Load Balancer is created by exposing external IP address for the frontend service which nodejs application.
 
 ### App Platform - Node.js
 
-How was the application developed.
+Nodejs application uses these packages & apis:
+express -- For rest server
+redis -- For redis client
+Google Places API -- For retrieving the entities from google by providing the lat/lng and radius.
+Google Map API -- For rendering the entities on Google Map.
 
 ### Caching - Redis
 
-How Redis was used.
+Cache-aside pattern is used for retrieving data from Redis. On receving locator request, first redis is looked for the data and if data exists then it is returned immediately. On Redis cache miss it is retrieved from Google API and populted to redis. Redis GEO commands are used to retrieve the data based on lat/lng and radius.
 
 ## API Contract
 
@@ -52,10 +59,11 @@ How Redis was used.
   - entity type
   - radius to search
 - Output (Array of)
+  - id for the entity
+  - name of entity
   - latitude of entity
   - longitude of entity
-  - description of entity
-  - distance from origin
+  - icon representing the entity
 
 
 Example JSON output:
@@ -63,17 +71,19 @@ Example JSON output:
 ```
 [
   {
-    "latitude": 123.12312323,
-    "longitude": -123.1232333,
-    "Joe's Diner",
-    "400"
+    "id": "8bcbe06e54aee1530f383ff96c83f5d9bbaee54d",
+    "name": "Hurricane's Grill Darling Harbour",
+    "lat": -33.87073569999999,
+    "lng": 151.1989809,
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"
   },
   {
-    "latitude": 123.1231455,
-    "longitude": -123.123522,
-    "Pizza Hut",
-    "450"
-  },
+    "id": "6237ce126ba1afabd5985b059d3d1eca6e9ee0da",
+    "name": "Blue Fish",
+    "lat": -33.871241,
+    "lng": 151.199087,
+    "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"
+  }
 ]
 ```
 
@@ -101,5 +111,5 @@ Access following REST API URL of Locator Service where Latitude, Longitude, Dist
 
 ## Issues/ TODO
 
-* Issue 1 - Description
-* Issue 2 - Description
+* Issue 1 - When request is sent for a particular lat/lng for first time, empty response is returned. On subsequent request for same lat/lng exact results will be displayed.
+
