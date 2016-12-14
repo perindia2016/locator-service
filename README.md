@@ -38,11 +38,11 @@ Jay, update the URL and the instructions how to run.
 
 ## Source code
 
-- [Docker Image](docker-image/README.md)
+- [Docker Image](docker-image)
 
   Contains the docker image and instructions on how to deploy to Google Cloud.
 
-- [Node Components](node-server/README.md)
+- [Node Components](node-server)
 
   Contains the node components which provide both the API and Web App.
 
