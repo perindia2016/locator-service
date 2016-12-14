@@ -12,7 +12,8 @@
             }
         </style>
         <title>Locator Service</title>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIJmNSXeGBShKOqgl2wlyHmjFPMowd6A4"></script>
+        <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIJmNSXeGBShKOqgl2wlyHmjFPMowd6A4"></script> -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9rZYvlkUZaR-yR5iNoDme-HzqSzraVTc"></script>
         <script type="text/javascript">
             var loadMap = function ()
             {
@@ -47,7 +48,7 @@
                     var markCenter = new google.maps.LatLng(lat, long);
                     var map = new google.maps.Map(document.getElementById("map"), myOptions);
                     var marker = new google.maps.Marker({
-                        /*		  position: {lat: <%=lat%>, lng: <%=lon%>},*/
+                        /*        position: {lat: <%=lat%>, lng: <%=lon%>},*/
                         position: markCenter,
                         map: map
                     });
