@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #map {
+                height: 90%;
+            }
+            html, body {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        <title>Locator Service</title>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIJmNSXeGBShKOqgl2wlyHmjFPMowd6A4"></script>
+        <script type="text/javascript">
+            var loadMap = function ()
+            {
+                var lat = document.getElementById("lat").value;
+                var long = document.getElementById("long").value;
+                var dist = document.getElementById("distance").value;
+                var entity = document.getElementById("entity").value;
+                var url = "http://127.0.0.1:8081/locator?lat=" + lat + "&long=" + long + "&distance=" + dist + "&entity_key=" + entity;
+
+                var req = new XMLHttpRequest();
+                req.onreadystatechange = function () {
+                    if (req.readyState != 4)
+                        return;
+                    if (req.status != 200) {
+                        alert("failure");
+                        return;
+                    }
+                    var resp = req.responseText;
+                    resp = JSON.parse(resp);
+                    var i;
+                    var arr = new Array(resp.length);
+                    for (i = 0; i < resp.length; i++) {
+                        var value = "{lat: " + resp[i].lat + ", lng: " + resp[i].long + "}";
+                        arr.push(value);
+                    }
+
+                    var myOptions = {
+                        center: new google.maps.LatLng(lat, long),
+                        zoom: 8,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var markCenter = new google.maps.LatLng(lat, long);
+                    var map = new google.maps.Map(document.getElementById("map"), myOptions);
+                    var marker = new google.maps.Marker({
+                        /*		  position: {lat: <%=lat%>, lng: <%=lon%>},*/
+                        position: markCenter,
+                        map: map
+                    });
+                    var infoWindow = new google.maps.InfoWindow();
+                    google.maps.event.addListener(map, 'click', function () {
+                        infoWindow.close();
+                    });
+                    displayMarkers(resp, map, infoWindow);
+                }
+                req.open("GET", url, true);
+                req.setRequestHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8081");
+                req.send();
+            };
+
+            function displayMarkers(markersData, map, infoWindow) {
+                var bounds = new google.maps.LatLngBounds();
+                for (var i = 0; i < markersData.length; i++) {
+                    var latlng = new google.maps.LatLng(markersData[i].lat, markersData[i].lng);
+                    var name = markersData[i].name;
+                    createMarker(latlng, name, map, infoWindow);
+                    bounds.extend(latlng);
+                }
+                map.fitBounds(bounds);
+            }
+            ;
+
+            function createMarker(latlng, name, map, infoWindow) {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: latlng,
+                    title: name
+                });
+                google.maps.event.addListener(marker, 'click', function () {
+                    var iwContent = '<div id="iw_container">' +
+                            '<div class="iw_title">' + name + '</div></div>';
+                    infoWindow.setContent(iwContent);
+                    infoWindow.open(map, marker);
+                });
+            }
+            ;
+        </script>
+    </head>
+    <body>
+        <form>
+            <label>Latitude <input name="lat" type="text" id="lat" /></label>
+            <label>Longitude <input name="long" type="text" id="long" /></label>
+            <label>Distance <input name="distance" type="text" id="distance" /></label>
+            <label>Entity Type <input name="entity" type="text" id="entity" /></label>
+            <input id="name" type="button" value="Submit" onclick="loadMap()"/>  
+        </form>
+        <div id="map"></div>
+    </body>
+</html>
