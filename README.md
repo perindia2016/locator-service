@@ -44,6 +44,39 @@ How was the application developed.
 
 How Redis was used.
 
+## API Contract
+
+- Inputs
+  - latitude   (origin)
+  - longitude  (origin)
+  - entity type
+  - radius to search
+- Output (Array of)
+  - latitude of entity
+  - longitude of entity
+  - description of entity
+  - distance from origin
+
+
+Example JSON output:
+
+```
+[
+  {
+    "latitude": 123.12312323,
+    "longitude": -123.1232333,
+    "Joe's Diner",
+    "400"
+  },
+  {
+    "latitude": 123.1231455,
+    "longitude": -123.123522,
+    "Pizza Hut",
+    "450"
+  },
+]
+```
+
 
 ## Running the Demo
 
