@@ -80,10 +80,13 @@ Example JSON output:
 
 ## Running the Demo
 
-Access following URL..... blah
-Jay, update the URL and the instructions how to run.
+Access following URL which provides the UI for the Locator Service where Latitude, Longitude, Distance and Entity Type (i.e., restaurants, foods).
 
-   [Application URL](http://www.oracle.com/)
+   [Application URL](http://35.184.17.6:8090/locatorui)
+   
+Access following REST API URL of Locator Service where Latitude, Longitude, Distance and Entity Type (i.e., restaurants, foods) are provided as query string.
+
+  [REST Endpoint URL](http://35.184.17.6:8090/locator?lat=-33.8708202&long=151.1994884&distance=500&entity_key=restaurant)
 
 ## Source code
 
