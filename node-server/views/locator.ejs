@@ -21,7 +21,7 @@
                 var long = document.getElementById("long").value;
                 var dist = document.getElementById("distance").value;
                 var entity = document.getElementById("entity").value;
-                var url = "http://127.0.0.1:8081/locator?lat=" + lat + "&long=" + long + "&distance=" + dist + "&entity_key=" + entity;
+                var url = "locator?lat=" + lat + "&long=" + long + "&distance=" + dist + "&entity_key=" + entity;
 
                 var req = new XMLHttpRequest();
                 req.onreadystatechange = function () {

@@ -1,7 +1,7 @@
 {
-  "name": "store-finder",
+  "name": "locator-service",
   "version": "1.0.0",
-  "description": "Store Finder Nodejs Redis",
+  "description": "Locator Service Nodejs Redis",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

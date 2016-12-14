@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var redis = require("redis");
 var fs = require("fs");
-var client = redis.createClient();
-//var client = redis.createClient('6379', 'redis');
+//var client = redis.createClient();
+var client = redis.createClient('6379', 'redis');
 var app = express();
 
 
@@ -80,10 +80,10 @@ function processResult(result, res){
         
         parseRow(id, restarants, function(object, restarants){
             status++;
-            console.log(object);
+            //console.log(object);
             restarants.push(object);
             if(status == result.length){
-                console.log(JSON.stringify(restarants));
+                //console.log(JSON.stringify(restarants));
                 sendResponse(res, restarants);
             }
         })
@@ -184,7 +184,7 @@ app.get('/locatorui', function (req, res) {
 })
 
 
-var server = app.listen(8081, function () {
+var server = app.listen(8090, function () {
    var host = server.address().address
    var port = server.address().port
    
