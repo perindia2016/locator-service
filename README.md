@@ -18,15 +18,31 @@ The diagram below shows our overall architecture:
 ## Technology Components
 
 - Cloud Provider - Google Cloud Platform
-- Deployment - Docker images via Kubernetes
-- In Built Load Balancer (LB) from Google
+- Deployment - Docker images using Kubernetes
+- In Built Load Balancer (LB)
 - App Platform - Node.js
-- Caching - Redis running on Google
+- Caching - Redis
 
 ## Architecture Description
 In the architecture we tried to use the cloud providers built in capabilities where possible. For Google, this includes Redis service LB.  To provide a potentially scalable solution we can scale out each tier as required, but have not done this due to "free" cloud restrictions.
 
+### Cloud Provider - Google Cloud Platform
 
+### Deployment - Docker images using Kubernetes
+
+Some description on how you created images and deployed using K8s.
+
+### Load Balancer
+
+How was this configured.
+
+### App Platform - Node.js
+
+How was the application developed.
+
+### Caching - Redis
+
+How Redis was used.
 
 
 ## Running the Demo
@@ -49,5 +65,5 @@ Jay, update the URL and the instructions how to run.
 
 ## Issues/ TODO
 
-* asdasd
-* asdasd  
+* Issue 1 - Description
+* Issue 2 - Description
