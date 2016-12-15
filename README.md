@@ -112,6 +112,8 @@ Example: Latitude: -33.8708202
 
   Contains the node components which provide both the API and Web App.
 
+## Demo Snapshot
+![Architecture](images/locator_service_demo.png)
 
 ## Issues/ TODO
 
